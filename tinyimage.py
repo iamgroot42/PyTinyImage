@@ -4,8 +4,8 @@ import scipy
 import Image
 
 #paths to various data files
-meta_file_path = "/tiny/tinyimages/tiny_metadata.bin"
-data_file_path = "/tiny/tinyimages/tiny_images.bin"
+meta_file_path = "/home/anshumans/tiny_images_dataset/tiny_metadata.bin"
+data_file_path = "/home/anshumans/tiny_images_dataset/tiny_images.bin"
  
 #open data files
 meta_file = 0
@@ -67,7 +67,7 @@ def logSearch(term):
       low = ((low + high) / 2)
   return (low, high)
 
-def retrieveByTerm(search_term, max_pics):
+def retrieveByTerm(search_term, max_pics=-1):
 	(l, h) = logSearch(search_term)
 	found = False
 	found_count = 0
@@ -86,10 +86,10 @@ def retrieveByTerm(search_term, max_pics):
 	return o
 
 def sliceToBin(indx):
-  offset = indx * 3072
-  data_file.seek(offset)
-  data = data_file.read(3072) 
-  return numpy.fromstring(data, dtype='uint8')
+	offset = indx * 3072
+	data_file.seek(offset)
+	data = data_file.read(3072) 
+	return numpy.fromstring(data, dtype='uint8')
 
 def sliceToImage(data, path):
 	t = data.reshape(32,32,3, order="F").copy()
